@@ -1,0 +1,131 @@
+{
+    "append_data": true,
+    "append_data_eval": false,
+    "checkpoints": {
+        "load": "auto",
+        "restart_every_n_iter": 10,
+        "save": true,
+        "save_every_n_iter": 25
+    },
+    "controller": "mpc-low-entropy-icem-torch",
+    "controller_params": {
+        "action_sampler_params": {
+            "alpha": 0.1,
+            "colored_noise": true,
+            "elites_size": 10,
+            "execute_best_elite": true,
+            "finetune_first_action": false,
+            "fraction_elites_reused": 0.3,
+            "init_std": 0.8,
+            "keep_previous_elites": true,
+            "noise_beta": 3.5,
+            "opt_iterations": 3,
+            "relative_init": true,
+            "shift_elites_over_time": true,
+            "use_ensemble_cost_std": false,
+            "use_mean_actions": true
+        },
+        "bidirectional": false,
+        "compression": true,
+        "compression_ndim": 2,
+        "cost_along_trajectory": "best",
+        "do_visualize_plan": false,
+        "ensemble_disagreement": true,
+        "ensemble_disagreement_scale": 0.1,
+        "factor_decrease_num": 1,
+        "granularity": 5,
+        "horizon": 20,
+        "logging": true,
+        "num_simulated_trajectories": 128,
+        "use_async_action": false,
+        "use_env_reward": false,
+        "verbose": false
+    },
+    "device": "cuda:0",
+    "env": "FetchPickAndPlaceConstruction",
+    "env_params": {
+        "case": "Singletower",
+        "num_blocks": 6,
+        "pattern": "singletower",
+        "pattern_inside": true,
+        "reset_w_patterns": false,
+        "shaped_reward": true,
+        "sparse": false,
+        "stack_only": true,
+        "visualize_mocap": false,
+        "visualize_target": false
+    },
+    "eval_buffers": [],
+    "evaluation_rollouts": 0,
+    "forward_model": "ParallelGNNDeterministicEnsemble",
+    "forward_model_params": {
+        "model_params": {
+            "act_fn": "relu",
+            "hidden_dim": 128,
+            "layer_norm": true,
+            "n": 5,
+            "num_layers": 2,
+            "num_message_passing": 1,
+            "output_act_fn": "none"
+        },
+        "normalize_w_running_stats": false,
+        "target_is_delta": true,
+        "train_params": {
+            "batch_size": 125,
+            "bootstrapped": false,
+            "epochs": 25,
+            "iterations": 0,
+            "learning_rate": 1e-05,
+            "optimizer": "Adam",
+            "train_epochs_only_with_latest_data": false,
+            "weight_decay": 0.001
+        },
+        "use_input_normalization": true,
+        "use_output_normalization": true
+    },
+    "horizon": 20,
+    "initial_controller": "none",
+    "initial_controller_params": {},
+    "initial_number_of_rollouts": 0,
+    "model_breakdown_above": 0.1,
+    "number_of_rollouts": 20,
+    "plot_model_accuracy": false,
+    "post_controller_learning_hooks": [],
+    "post_mainloop_hooks": [],
+    "post_model_learning_hooks": [],
+    "post_rollout_hooks": [
+        [
+            "experiments.cee_us.hooks.post_rollout_hooks.interaction_metrics_construction:interaction_tracker_hook",
+            {
+                "plot_trajs": false
+            }
+        ]
+    ],
+    "pre_controller_learning_hooks": [],
+    "pre_mainloop_hooks": [
+        [
+            "experiments.cee_us.hooks.pre_mainloop_hooks.init_model:init_model_hook"
+        ],
+        [
+            "experiments.cee_us.hooks.pre_mainloop_hooks.fill_model_eval_buffer:fill_model_eval_buffer_hook"
+        ],
+        [
+            "experiments.cee_us.hooks.pre_mainloop_hooks.print_buffer_size:print_buffer_size_hook"
+        ]
+    ],
+    "pre_model_learning_hooks": [],
+    "pre_rollout_hooks": [],
+    "rollout_params": {
+        "logging": true,
+        "only_final_reward": false,
+        "record": false,
+        "render": false,
+        "render_eval": false,
+        "render_initial": false,
+        "task_horizon": 100,
+        "use_env_states": true
+    },
+    "seed": 733695677,
+    "training_iterations": 300,
+    "working_dir": "trained_models/construction_free_play/rair_cee_us"
+}

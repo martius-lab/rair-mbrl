@@ -1,0 +1,13 @@
+env: "FetchPickAndPlaceConstruction"
+env_params:
+  sparse: false
+  shaped_reward: true
+  num_blocks: 6
+  stack_only: true
+  case: "Singletower"
+  visualize_target: false
+  visualize_mocap: false
+  reset_w_patterns: false
+  pattern_inside: false
+  pattern: "singletower"
+

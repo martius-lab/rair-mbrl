@@ -1,0 +1,40 @@
+__import__:
+    - "experiments/defaults.yaml"
+    - "experiments/cee_us/settings/common/basic.yaml"
+    - "experiments/rair/settings/roboyoga/common/quadruped_env.yaml"
+    - "experiments/rair/settings/roboyoga/common/mlp_ensemble.yaml"
+    - "experiments/rair/settings/roboyoga/zero_shot_generalization/common/controller_roboyoga.yaml"
+
+env_params:
+  goal_mode: "roboyoga"
+  roboyoga_goal_id: 9
+  # seed: 34583478  
+
+post_rollout_hooks: [
+  ["experiments.rair.hooks.post_rollout_hooks.roboyoga_success:roboyoga_success_hook"],
+]
+
+# Make sure the settings for the model specified in 
+# "experiments/rair/settings/roboyoga/common/mlp_ensemble.yaml"
+# and the loaded model settings match! You can also overwrite the forward_model_params in this file!
+# forward_model_params:
+#    model_params: 
+#       ...
+
+forward_model_init: 
+    pretrainer: null
+    pickle_path: "trained_models/quadruped_free_play/rair_cee_us/checkpoints_199/forward_model"
+
+number_of_rollouts: 100
+training_iterations: 1
+
+rollout_params:
+  task_horizon: 150
+  render: true
+
+# You can set the seed here in the following line!
+# seed: 34583478
+
+working_dir: "results/quadruped/zero_shot/rair_ceeus_roboyoga_goal9"
+
+device: "cuda:0"

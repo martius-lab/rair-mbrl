@@ -1,0 +1,10 @@
+env: "quadruped"
+env_params: 
+  task_name: "walk" # this is just for dmsuite!
+  include_hips: false
+  include_ankles: false
+  include_knees: true
+  include_toes: true
+  include_torso: false
+  overwrite_obs: true
+  visualize_reward: false # this is for the original "task" visualization of dm_suite

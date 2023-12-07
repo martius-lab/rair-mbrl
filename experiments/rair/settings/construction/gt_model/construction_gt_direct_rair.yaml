@@ -1,0 +1,41 @@
+__import__:
+    - "experiments/defaults.yaml"
+    - "experiments/rair/settings/common/basic.yaml"
+    - "experiments/rair/settings/common/curious-direct-rair-i-cem.yaml"
+    - "experiments/rair/settings/construction/common/construction_env.yaml"
+
+env_params:
+  num_blocks: 6
+
+rollout_params:
+  render: false
+  task_horizon: 600
+
+controller_params:
+  horizon: 30
+  num_simulated_trajectories: 128
+  cost_along_trajectory: "best"
+  compression_ndim: 2
+  granularity: 1
+  precision: 100
+  all_axis: false
+  per_axis: true
+
+forward_model: ParallelGroundTruthModel
+forward_model_params:
+  num_parallel: 32
+
+number_of_rollouts: 1
+training_iterations: 10
+
+append_data: true
+append_data_eval: false
+
+checkpoints:
+  save: true
+  save_every_n_iter: 1
+
+device: "cpu"
+
+working_dir: "results/rair/construction/gt_model/gt_6obj_rair_direct"
+

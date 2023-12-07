@@ -1,0 +1,36 @@
+__import__:
+    - "experiments/defaults.yaml"
+    - "experiments/cee_us/settings/common/basic.yaml"
+    - "experiments/rair/settings/construction/zero_shot_generalization/common/basic_gnn_ensemble_zero_shot.yaml"
+    - "experiments/cee_us/settings/construction/zero_shot_generalization/common/controller_throw.yaml"    
+
+# GNNs work with more or less objects as seen during free play time! 
+env_params:
+  num_blocks: 4
+
+post_rollout_hooks: [
+  ["experiments.rair.hooks.post_rollout_hooks.construction_success:construction_success_hook"],
+]
+
+# Make sure the settings for the model specified in 
+# "experiments/rair/settings/construction/zero_shot_generalization/common/basic_gnn_ensemble_zero_shot.yaml"
+# and the loaded model settings match! You can also overwrite the forward_model_params in this file!
+# forward_model_params:
+#    model_params: 
+#       ...
+
+forward_model_init: 
+    pretrainer: null
+    pickle_path: "trained_models/construction_free_play/rair_cee_us/checkpoints_latest/forward_model"
+
+rollout_params:
+  render: false # set true for live rendering!
+
+number_of_rollouts: 100
+
+working_dir: "results/rair/construction/zero_shot/rair_ceeus_throw4"
+
+device: "cuda:0"
+
+# You can set the seed here in the following line!
+# seed: 999

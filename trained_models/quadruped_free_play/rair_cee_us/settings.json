@@ -1,0 +1,132 @@
+{
+    "append_data": true,
+    "append_data_eval": false,
+    "checkpoints": {
+        "load": "auto",
+        "restart_every_n_iter": 25,
+        "save": true,
+        "save_every_n_iter": 10
+    },
+    "controller": "mpc-relational-rair-icem-torch",
+    "controller_params": {
+        "action_sampler_params": {
+            "alpha": 0.1,
+            "colored_noise": true,
+            "elites_size": 10,
+            "execute_best_elite": true,
+            "finetune_first_action": false,
+            "fraction_elites_reused": 0.3,
+            "init_std": 0.5,
+            "keep_previous_elites": true,
+            "noise_beta": 2.5,
+            "opt_iterations": 3,
+            "relative_init": true,
+            "shift_elites_over_time": true,
+            "use_ensemble_cost_std": false,
+            "use_mean_actions": true
+        },
+        "bidirectional": false,
+        "compression": true,
+        "compression_ndim": 2,
+        "cost_along_trajectory": "sum",
+        "do_visualize_plan": false,
+        "ensemble_disagreement": true,
+        "ensemble_disagreement_scale": 0.02,
+        "factor_decrease_num": 1,
+        "granularity": 5,
+        "horizon": 30,
+        "logging": true,
+        "mode": "normal",
+        "num_simulated_trajectories": 64,
+        "precision": 100,
+        "random_submask": false,
+        "use_async_action": false,
+        "use_env_reward": false,
+        "verbose": false
+    },
+    "device": "cuda:0",
+    "env": "quadruped",
+    "env_params": {
+        "action_repeat": 1,
+        "include_ankles": false,
+        "include_hips": false,
+        "include_knees": true,
+        "include_toes": true,
+        "include_torso": false,
+        "overwrite_obs": true,
+        "task_name": "walk"
+    },
+    "eval_buffers": [
+        "/is/cluster/fast/csancaktar/results/roboyoga/quadruped/zero_shot/roboyoga_rair_a1_lambda_seeds_cpt170/working_directories/44/checkpoints_000/rollouts"
+    ],
+    "evaluation_rollouts": 0,
+    "forward_model": "ParallelNNDeterministicEnsemble",
+    "forward_model_params": {
+        "model_params": {
+            "act_fn": "silu",
+            "bias_initializer": "constant_zero",
+            "hidden_dim": 600,
+            "n": 5,
+            "num_layers": 3,
+            "output_act_fn": "none",
+            "weight_initializer": "torch_truncated_normal"
+        },
+        "normalize_w_running_stats": false,
+        "target_is_delta": true,
+        "train_params": {
+            "batch_size": 128,
+            "bootstrapped": false,
+            "epochs": 25,
+            "grad_norm": null,
+            "iterations": 0,
+            "learning_rate": 0.0001,
+            "optimizer": "Adam",
+            "train_epochs_only_with_latest_data": false,
+            "weight_decay": 0.0001
+        },
+        "use_input_normalization": true,
+        "use_output_normalization": true
+    },
+    "horizon": 30,
+    "initial_controller": "none",
+    "initial_controller_params": {},
+    "initial_number_of_rollouts": 0,
+    "model_breakdown_above": 0.1,
+    "number_of_rollouts": 20,
+    "plot_model_accuracy": false,
+    "post_controller_learning_hooks": [],
+    "post_mainloop_hooks": [],
+    "post_model_learning_hooks": [],
+    "post_rollout_hooks": [
+        [
+            "experiments.rair.hooks.post_rollout_hooks.rair_tracker:rair_tracker_hook"
+        ]
+    ],
+    "pre_controller_learning_hooks": [],
+    "pre_mainloop_hooks": [
+        [
+            "experiments.rair.hooks.pre_mainloop_hooks.init_model:init_model_hook"
+        ],
+        [
+            "experiments.rair.hooks.pre_mainloop_hooks.fill_model_eval_buffer:fill_model_eval_buffer_hook"
+        ],
+        [
+            "experiments.rair.hooks.pre_mainloop_hooks.print_buffer_size:print_buffer_size_hook"
+        ]
+    ],
+    "pre_model_learning_hooks": [],
+    "pre_rollout_hooks": [],
+    "rollout_params": {
+        "logging": true,
+        "only_final_reward": false,
+        "record": false,
+        "render": false,
+        "render_eval": false,
+        "render_initial": false,
+        "task_horizon": 100,
+        "use_env_states": true
+    },
+    "seed": 1205948363,
+    "training_iterations": 200,
+    "working_dir": "trained_models/quadruped_free_play/rair_cee_us"
+}

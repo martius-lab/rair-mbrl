@@ -1,0 +1,41 @@
+__import__:
+    - "experiments/defaults.yaml"
+    - "experiments/rair/settings/common/basic.yaml"
+    - "experiments/rair/settings/common/curious-relational-rair-i-cem.yaml"
+    - "experiments/rair/settings/shape_gridworld/common/shape_gridworld_env.yaml"
+
+env: ShapeGridworldColored
+env_params:
+  height: 25
+  width: 25
+  num_objects: 20
+  num_colors: 3
+  object_persistency: 10
+  render_type: "circles"
+
+rollout_params:
+  task_horizon: 1500
+
+controller_params:
+  horizon: 30
+  num_simulated_trajectories: 64
+  cost_along_trajectory: "best"
+  granularity: 1
+  precision: 1
+  bidirectional: false
+  compression_ndim: 4 # 2 + color encoding dim: ceil(log(num_colors,2))!
+
+forward_model: ParallelGroundTruthModel
+forward_model_params:
+  num_parallel: 16
+
+number_of_rollouts: 1
+training_iterations: 10
+
+checkpoints:
+  save: true
+  save_every_n_iter: 1
+
+device: "cpu"
+
+working_dir: "results/rair/shape_gridworld/gt_model/gt_rair_relational_colored_3color_20obj"

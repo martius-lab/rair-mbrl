@@ -1,0 +1,43 @@
+__import__:
+    - "experiments/defaults.yaml"
+    - "experiments/rair/settings/common/basic.yaml"
+    - "experiments/rair/settings/common/curious-compression-i-cem.yaml"
+    - "experiments/rair/settings/construction/common/construction_env.yaml"
+    - "experiments/rair/settings/construction/common/gnn_ensemble.yaml"
+
+pre_mainloop_hooks: [
+   ["experiments.rair.hooks.pre_mainloop_hooks.init_model:init_model_hook"],
+   ["experiments.rair.hooks.pre_mainloop_hooks.fill_model_eval_buffer:fill_model_eval_buffer_hook"],
+   ["experiments.rair.hooks.pre_mainloop_hooks.print_buffer_size:print_buffer_size_hook"]
+]
+
+post_rollout_hooks: [
+   ["experiments.rair.hooks.post_rollout_hooks.interaction_metrics_construction:interaction_tracker_hook"],
+] 
+
+# eval_buffers: [
+#   "datasets/construction_6obj/rollouts_eval"
+# ]
+
+env_params:
+  num_blocks: 6
+
+number_of_rollouts: 20
+training_iterations: 300
+
+rollout_params:
+    render: false
+    task_horizon: 100
+
+horizon: 20
+
+controller_params: 
+    horizon: 20
+    cost_along_trajectory: "best"
+
+checkpoints:
+    save_every_n_iter: 25
+
+working_dir: "results/rair/construction/curious_exploration/compression_cee_us_freeplay"
+
+device: "cuda:0"

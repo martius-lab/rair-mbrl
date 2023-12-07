@@ -1,0 +1,23 @@
+__import__:
+    - "experiments/rair/settings/roboyoga/zero_shot_generalization/common/controller_walk.yaml"
+
+env_params:
+  goal_mode: "roboyoga"
+  visualize_reward: false
+
+controller: "mpc-icem-torch"
+controller_params:
+  horizon: 30
+  num_simulated_trajectories: 128
+  cost_along_trajectory: "sum"
+  action_sampler_params: 
+    opt_iterations: 3
+    elites_size: 10
+    relative_init: True
+    noise_beta: 2.5
+    init_std: 0.3
+  verbose: false
+
+device: "cuda:0"
+
+working_dir: "experiments/results/roboyoga_quadruped/zero_shot/roboyoga"

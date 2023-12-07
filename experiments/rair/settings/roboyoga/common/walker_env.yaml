@@ -1,0 +1,9 @@
+env: "walker"
+env_params: 
+  task_name: "stand" # this is just for dmsuite!
+  overwrite_obs: true
+  include_feet: true
+  include_thighs: false
+  include_legs: true
+  include_torso: true
+  visualize_reward: false # this is for the original "task" visualization of dm_suite

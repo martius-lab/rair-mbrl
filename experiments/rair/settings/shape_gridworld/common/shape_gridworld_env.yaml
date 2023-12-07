@@ -1,0 +1,7 @@
+env: "ShapeGridworld"
+env_params:
+  height: 25
+  width: 25
+  num_objects: 16
+  object_persistency: 10
+  render_type: "circles"

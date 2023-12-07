@@ -1,0 +1,42 @@
+__import__:
+    - "experiments/defaults.yaml"
+    - "experiments/rair/settings/common/basic.yaml"
+    - "experiments/rair/settings/common/curious-relational-rair-i-cem.yaml"
+    - "experiments/rair/settings/roboyoga/common/walker_env.yaml"
+
+env_params:
+  include_feet: true
+  include_legs: true
+  include_thighs: false
+  include_torso: true
+
+rollout_params:
+  render: false
+  task_horizon: 75
+
+controller_params:
+  horizon: 30
+  num_simulated_trajectories: 64
+  cost_along_trajectory: "sum"
+  compression_ndim: 3
+  granularity: 1
+  precision: 100
+  bidirectional: false
+  action_sampler_params: 
+    noise_beta: 2.5
+    init_std: 0.3
+  verbose: True
+
+forward_model: GroundTruthModel
+forward_model_params: {}
+
+number_of_rollouts: 1
+training_iterations: 20
+
+checkpoints:
+  save: true
+  save_every_n_iter: 5
+
+device: "cpu"
+
+working_dir: "results/rair/walker/gt_model/gt_walker_rair_relational"
